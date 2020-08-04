@@ -1,32 +1,28 @@
 <?php
-if (isset($_POST['activar'])) 
-{
-include('conexion.php');
 
-$id_usuario=$_GET['id_usuario'];
+include( 'conexion.php' );
 
-$consulta_estado_usuario= "SELECT estaActivo from usuarios WHERE id_usuario='$id_usuario'";
-$resultado_estado=mysqli_query($CNX,$consuta_estado_usuario);
+$id_usuario = $_GET['id_usuario'];
+$resultado = $CNX->query( "SELECT estaActivo from usuarios WHERE id_us= '$id_usuario'" );
+$registro = $resultado->fetch_assoc();
 
-if ($row['estaActivo'] == 1) {
-	$consulta="UPDATE usuarios SET estaActivo = 0  WHERE id_usuario='$id_usuario'";
-	$resultado=mysqli_query($CNX,$consulta);
+if ( $registro['estaActivo'] == 1 ) {
+	$resultado = $CNX->query( "UPDATE usuarios SET estaActivo = 0  WHERE id_us='$id_usuario'" );
+
 } else {
-	$consulta="UPDATE usuarios SET estaActivo = 1  WHERE id_usuario='$id_usuario'";
-	$resultado=mysqli_query($CNX,$consulta);
+    $resultado = $CNX->query( "UPDATE usuarios SET estaActivo = 1  WHERE id_us='$id_usuario'" );
 }
-}
-?>
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Eliminar Cliente</title>
+<title>Cambiar estados de usuarios</title>
 </head>
 <body>
 <script>
-	alert("Su registro ha sido actualizado correctamente");
-	window.location="../client-list.php";
- </script>
+alert( 'Su registro ha sido actualizado correctamente' );
+window.location = '../client-list.php';
+</script>
 </body>
 </html>
